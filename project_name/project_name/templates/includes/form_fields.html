@@ -1,0 +1,5 @@
+<span class="help-block">{{ form.non_field_errors }}</span>
+
+{% for field in form %}
+{% include 'snippets/_form_field.html' with field=field %}
+{% endfor %}
