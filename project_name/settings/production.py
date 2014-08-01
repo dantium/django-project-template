@@ -1,6 +1,7 @@
+# Add any production settings in here
 from default import *
 
-DEBUG = True
+DEBUG = False
 
 try:
     from local import *

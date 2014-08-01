@@ -1,6 +1,7 @@
+# Add any staging settings in here
 from default import *
 
-DEBUG = False
+DEBUG = True
 
 try:
     from local import *

@@ -1,4 +1,6 @@
-# ignored in .gitignore by default
+# This will override settings
+# Should ignore this file in version control 
+
 
 DATABASES = {
     'default': {
@@ -16,7 +18,7 @@ DEBUG = True
 
 # testng
 WSGI_APPLICATION = None
-ROOT_URLCONF = 'project_name.urls'
+ROOT_URLCONF = '{{ project_name }}.urls'
 ALLOWED_HOSTS = ['localhost']
 
 INTERNAL_IPS = ('10.0.2.2',)
