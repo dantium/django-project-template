@@ -4,7 +4,7 @@ import os
 from fabric.decorators import runs_once
 from fabric.operations import put, prompt
 from fabric.colors import green, red
-from fabric.api import cd, run, env, task, require, put
+from fabric.api import cd, run, env, task, require, put, sudo
 from fabric.contrib.files import upload_template
 
 
@@ -33,7 +33,7 @@ def update_virtualenv():
     Install the dependencies in the requirements file
     """
     notify("Running pip requierments")
-    virtualenv('pip install -r requirements.txt')
+    virtualenv('pip install -r requirements/server.txt')
 
 def collect_static_files():
     notify("Collecting static files")
@@ -52,12 +52,14 @@ def migrate():
 def deploy_nginx_config():
     notify('Moving nginx config into place')
     with cd(env.project_path):
-        upload_template('deploy/nginx/template.conf', '/etc/nginx/conf.d/%(app_name)s.conf' % env, context=env, mode=0777)
+        upload_template('deploy/nginx/template.conf', 
+            '/etc/nginx/conf.d/%(app_name)s.conf' % env, context=env, mode=0777)
 
 def deploy_supervisor_config():
     notify('Moving supervisor config into place')
     with cd(env.project_path):
-        upload_template('deploy/supervisor/template.conf', '/etc/supervisor/conf.d/%(app_name)s.conf' % env, context=env, mode=0777)
+        upload_template('deploy/supervisor/template.conf', 
+            '/etc/supervisor/conf.d/%(project_name)s.conf' % env, context=env, mode=0777)
 
 
 def reload_nginx():
@@ -66,7 +68,7 @@ def reload_nginx():
 
 def restart_app():
     notify('Restarting supervisord instance')
-    run("sudo supervisorctl restart %(app_name)s" % env)
+    run("sudo supervisorctl restart %(project_name)s" % env)
 
 
 # Server setup
@@ -78,15 +80,22 @@ def install_less():
 
 
 @task
-def setup():
+def setup_deployment():
+    """
+    Setup the deployment configuration
+    """
+    pull_source_code()
     deploy_supervisor_config()
     deploy_nginx_config()
     reload_nginx()
+    restart_app()
 
 @task
-def deploy():    
+def deploy():   
     pull_source_code()
     update_virtualenv()            
     migrate()
     collect_static_files()
     restart_app()
+
+

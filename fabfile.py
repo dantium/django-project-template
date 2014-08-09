@@ -5,14 +5,15 @@ from deploy.fabric_common import *
 env.forward_agent = True
 env.git_path =  '{{ git_path }}' # 'git@bitbucket.org:dantium/{{ project_name }}.git'
 env.app_name = '{{ project_name }}'
+env.project_name = '{{ project_name }}'
 
 #env.key_filename = '/path/to/keyfile.pem'
         
 def _configure():
     #env.use_ssh_config = True
-    env.project_path = '%(base_path)s/sites/%(app_name)s' % env
-    env.app_path = '/%(project_path)s/%(app_name)s/' % env
-    env.virtualenv = '%(base_path)s/virtualenvs/%(app_name)s' % env
+    env.project_path = '%(base_path)s/sites/%(project_name)s' % env
+    env.app_path = '%(project_path)s/%(app_name)s/' % env
+    env.virtualenv = '%(base_path)s/virtualenvs/%(project_name)s' % env
     env.activate = 'source %(virtualenv)s/bin/activate' % env
     env.settings = '%(app_name)s.settings.%(build)s' % env
     env.nginx_conf = 'deploy/nginx/%(build)s.conf' % env
