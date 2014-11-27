@@ -1,0 +1,6 @@
+Django
+django-compressor
+psycopg2
+gunicorn
+Pillow
+sorl-thumbnail

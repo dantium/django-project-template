@@ -1,7 +1,2 @@
-Django
-django-compressor
-psycopg2
-gunicorn
-Pillow
-sorl-thumbnail
+-r base.txt
 fabric

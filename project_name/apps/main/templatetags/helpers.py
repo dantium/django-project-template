@@ -1,4 +1,4 @@
-#SwiftServe common Helper Template tag's
+#Common Helper Template tag's
 from django import template
 
 register = template.Library()
