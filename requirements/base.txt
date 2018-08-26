@@ -1,6 +1,7 @@
-Django
-django-compressor
-psycopg2
-gunicorn
-Pillow
-sorl-thumbnail
+Django==2.1
+django-compressor==2.2
+psycopg2==2.7.5
+gunicorn==19.9.0
+Pillow==5.2.0
+sorl-thumbnail==12.4.1
+django-libsass==0.7

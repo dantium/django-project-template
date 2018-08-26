@@ -1,9 +1,9 @@
 # Add any staging settings in here
-from default import *
+from .default import *
 
 DEBUG = True
 
 try:
-    from local import *
+    from .local import *
 except ImportError:
     pass
